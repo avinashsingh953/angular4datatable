@@ -1,4 +1,4 @@
-import { Component, Inject, forwardRef } from '@angular/core';
+import { Component, Inject, forwardRef,OnInit } from '@angular/core';
 import { DataTable } from './table.component';
 import { HEADER_TEMPLATE } from './header.template';
 import { HEADER_STYLE } from "./header.style";
@@ -12,7 +12,7 @@ import { HEADER_STYLE } from "./header.style";
     '(document:click)': '_closeSelector()'
   }
 })
-export class DataTableHeader {
+export class DataTableHeader implements OnInit {
 
     columnSelectorOpen = false;
 
@@ -20,5 +20,22 @@ export class DataTableHeader {
         this.columnSelectorOpen = false;
     }
 
-    constructor(@Inject(forwardRef(() => DataTable)) public dataTable: DataTable) {}
+    constructor(@Inject(forwardRef(() => DataTable)) public dataTable: DataTable) {
+      
+    }
+    get searchString() {
+        return this.dataTable.searchString;
+    }
+
+    set searchString(value) {
+        this.dataTable.searchString = value;
+    }
+
+    ngOnInit(){
+      this.searchString="";
+    }
+
+    applySearch(){
+      this.dataTable.applySearch();
+    }
 }

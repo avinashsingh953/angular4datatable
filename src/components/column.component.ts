@@ -15,7 +15,7 @@ export class DataTableColumn implements OnInit {
     @Input() property: string;
     @Input() styleClass: string;
     @Input() cellColors: CellCallback;
-
+    
     // init and state:
     @Input() width: number | string;
     @Input() visible = true;

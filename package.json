@@ -1,7 +1,7 @@
 {
   "name": "angular-2-data-table",
   "version": "0.1.2",
-  "description": "An Angular 2 data table, with pagination, sorting, expandable rows etc.",
+  "description": "An Angular 2 data table, with pagination, searching, sorting, expandable rows etc.",
   "keywords": [
     "angular",
     "angular2",
@@ -26,7 +26,7 @@
   "peerDependencies": {
     "@angular/core": "^2.0.0"
   },
-  "author": "ggmod <ggmod64@gmail.com>",
+  "author": "avinash <avinashsingh953@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@angular/common": "^2.0.0",

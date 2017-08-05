@@ -33,6 +33,22 @@ export class DataTableResource<T> {
                 result = result.slice(params.offset, params.offset + params.limit);
             }
         }
+        if (params.searchString!=undefined && params.searchString!=''){
+            let temp_result=[];
+            for (let row of result){
+                let array=objectToArray(row);
+                let found=false;
+                for (let item of array){
+                    if(item.toLowerCase().search(params.searchString.toLowerCase())!=-1){
+                        found=true;
+                    }
+                }
+                if(found){
+                    temp_result.push(row);
+                }
+            }
+            result=temp_result;
+        }
 
         return new Promise((resolve, reject) => {
             setTimeout(() => resolve(result));
@@ -45,4 +61,18 @@ export class DataTableResource<T> {
         });
 
     }
+
+    
+}
+
+function objectToArray(obj:any):string[]{
+    let arr = [];
+    let index=0;
+    for(let key in obj){
+        if(obj.hasOwnProperty(key)){
+            arr.push(obj[key]);
+            index++;
+        }
+    }
+    return arr;
 }

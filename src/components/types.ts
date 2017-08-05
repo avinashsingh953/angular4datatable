@@ -31,4 +31,5 @@ export interface DataTableParams {
     limit?: number;
     sortBy?: string;
     sortAsc?: boolean;
+    searchString?: string;
 }

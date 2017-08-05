@@ -19,7 +19,7 @@ import { TABLE_STYLE } from "./table.style";
   styles: [TABLE_STYLE]
 })
 export class DataTable implements DataTableParams, OnInit {
-
+    private Items:any[]=[];
     private _items: any[] = [];
 
     @Input() get items() {
@@ -56,6 +56,7 @@ export class DataTable implements DataTableParams, OnInit {
     @Input() selectOnRowClick = false;
     @Input() autoReload = true;
     @Input() showReloading = false;
+    @Input() enableSearch = true;
 
     // UI state without input:
 
@@ -70,6 +71,17 @@ export class DataTable implements DataTableParams, OnInit {
 
     private _offset = 0;
     private _limit = 10;
+    private _searchString = "";
+
+    @Input()
+    get searchString(){
+        return this._searchString;
+    }
+
+    set searchString(value){
+        this._searchString =value;
+        this._triggerReload();
+    }
 
     @Input()
     get sortBy() {
@@ -139,7 +151,7 @@ export class DataTable implements DataTableParams, OnInit {
         this._initDefaultValues();
         this._initDefaultClickEvents();
         this._updateDisplayParams();
-
+        this.Items = this._items;
         if (this.autoReload && this._scheduledReload == null) {
             this.reloadItems();
         }
@@ -173,6 +185,10 @@ export class DataTable implements DataTableParams, OnInit {
         this.reload.emit(this._getRemoteParameters());
     }
 
+    applySearch(){
+        console.log(this.searchString);
+    }
+
     private _onReloadFinished() {
         this._updateDisplayParams();
 
@@ -191,7 +207,8 @@ export class DataTable implements DataTableParams, OnInit {
             sortBy: this.sortBy,
             sortAsc: this.sortAsc,
             offset: this.offset,
-            limit: this.limit
+            limit: this.limit,
+            searchString: this.searchString
         };
     }
 
@@ -246,6 +263,9 @@ export class DataTable implements DataTableParams, OnInit {
         if (this.pagination) {
             params.offset = this.offset;
             params.limit = this.limit;
+        }
+        if(this.enableSearch){
+            params.searchString =this.searchString;
         }
         return params;
     }
