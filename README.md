@@ -2,6 +2,7 @@ Data Table with following features
 
 * pagination
 * sorting
+* searching
 * row selection (single/multi)
 * expandable rows
 * column resizing
